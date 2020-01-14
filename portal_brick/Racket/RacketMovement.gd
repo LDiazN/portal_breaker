@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends Node2D;
 
 # Is the top player racket or the bottom one?
 export var isTop: bool = false;
@@ -42,16 +42,21 @@ func _process(delta):
 		elif (Input.is_action_pressed("t_racket_right")):
 			_actualSpeed = _speed;
 	
-	move_and_slide(Vector2.RIGHT * _actualSpeed);
+	 Move(Vector2.RIGHT * _actualSpeed * delta);
 	
 	# Keeps racket inside play area
 	# Maybe make a function
-	var xPos : float = get_global_transform().origin.x;
-	if (xPos + (racketWidth/2) > playAreaWidth + playAreaOrigin.x):
-		var diff : float = abs(xPos + (racketWidth/2) - (playAreaWidth + playAreaOrigin.x));
-		position = position - Vector2.RIGHT * diff;
-	elif (xPos + (racketWidth/2) < playAreaOrigin.x - playAreaWidth):
-		var diff : float = abs(xPos + (racketWidth/2) - (playAreaOrigin.x - playAreaWidth));
-		position = position + Vector2.RIGHT * diff;
+	var xPos : float = global_position.x;
+	if (xPos + racketWidth > (playAreaWidth/2) + playAreaOrigin.x):
+		var diff : float = abs(xPos + racketWidth - ((playAreaWidth/2) + playAreaOrigin.x));
+		Move(-Vector2.RIGHT * diff)
+	elif (xPos + racketWidth < playAreaOrigin.x - (playAreaWidth/2)):
+		var diff : float = abs(xPos + racketWidth - (playAreaOrigin.x - (playAreaWidth/2)));
+		Move(-Vector2.RIGHT * diff);
 	else:
 		pass;
+		
+func Move(velocity: Vector2):
+	print(velocity);
+	var parent: Node2D = get_parent();
+	parent.global_position += velocity;
