@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://tilemap/tile_set.tres" type="TileSet" id=1]
+[ext_resource path="res://tilemap/block.gd" type="Script" id=2]
+[ext_resource path="res://tilemap/KinematicBody2D.gd" type="Script" id=3]
+[ext_resource path="res://tilemap/black_sqr.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0 )
+script = ExtResource( 2 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 20, 50 )
+mode = 2
+mass = 9.8
+gravity_scale = 0.0
+contacts_reported = 3
+contact_monitor = true
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+texture = ExtResource( 4 )
+[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_entered"]
+[connection signal="brick_found" from="RigidBody2D" to="TileMap" method="_on_RigidBody2D_brick_found"]
