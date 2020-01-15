@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 export(float) var speed;
 export(NodePath) var node;
@@ -24,22 +24,10 @@ func _process(delta):
 	
 	
 func _physics_process(delta):
-	add_central_force( dir.normalized() * speed);
+	var col : KinematicCollision2D;
+	col = move_and_collide(dir*speed);
+	if col != null:
+		print(col.position);
+		emit_signal("brick_found", col.position - col.normal);
 	
 
-
-func _integrate_forces(state : Physics2DDirectBodyState):
-	var n_col : int = state.get_contact_count(); #number of colliding objects
-	
-	if(n_col >= 1):
-		for i in range(n_col):
-			print("just found a tile in: ", state.get_contact_collider_position(i));
-			emit_signal("brick_found",  
-										state.get_contact_local_position(i) + 
-										state.get_contact_local_normal(i)*2);
-			
-
-# func _on_RigidBody2D_body_entered(body : Node2D) -> void:
-#	body entered signal handler.
-func _on_RigidBody2D_body_entered(body : Node2D) -> void:
-	pass

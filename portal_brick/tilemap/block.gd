@@ -9,8 +9,11 @@ func delete_block( pos : Vector2 ) -> void:
 	set_cellv( pos, -1);
 
 
-func _on_RigidBody2D_brick_found(pos):
+
+
+
+func _on_test_body_brick_found(pos):
 	var tile_pos : Vector2 = world_to_map(pos)
 	print("Tocaron el tile:", get_cellv(tile_pos));
-	set_cellv(tile_pos, 2);
+	set_cellv(tile_pos, -1);
 	pass # Replace with function body.

@@ -15,26 +15,18 @@ tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0 )
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 131077, 2, 0, 196611, 1, 0, 196612, 2, 0, 196613, 2, 0 )
 script = ExtResource( 2 )
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2( 20, 50 )
-mode = 2
-mass = 9.8
-gravity_scale = 0.0
-contacts_reported = 3
-contact_monitor = true
+[node name="test_body" type="KinematicBody2D" parent="."]
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_group_": true
-}
-speed = 100.0
+speed = 10.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="test_body"]
+position = Vector2( 20, 50 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="RigidBody2D"]
+[node name="Sprite" type="Sprite" parent="test_body"]
+position = Vector2( 20, 50 )
 texture = ExtResource( 4 )
-[connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_entered"]
-[connection signal="brick_found" from="RigidBody2D" to="TileMap" method="_on_RigidBody2D_brick_found"]
+[connection signal="brick_found" from="test_body" to="TileMap" method="_on_test_body_brick_found"]
