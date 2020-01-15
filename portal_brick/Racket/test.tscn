@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Racket/Racket.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Racket" parent="." instance=ExtResource( 1 )]
+position = Vector2( 190, 200 )
+_linkedToPath = NodePath("../Racket2")
+_isTopOne = true
+
+[node name="Racket2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 190, 10 )
+rotation = -3.14159
+_isTopOne = false
+
+[node name="Ball" parent="." instance=ExtResource( 2 )]
+position = Vector2( 50, 120 )
+speed = 70.0
