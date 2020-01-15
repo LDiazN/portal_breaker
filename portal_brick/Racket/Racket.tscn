@@ -1,27 +1,28 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Racket/RacketMovement.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Racket/TPArea.gd" type="Script" id=3]
+[ext_resource path="res://Racket/Racket.gd" type="Script" id=1]
+[ext_resource path="res://Racket/RacketMovement.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Racket/TPArea.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50.2152, 10 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Racket" type="Node2D"]
 position = Vector2( 200, 110 )
+script = ExtResource( 1 )
 
 [node name="Movement System" type="Node2D" parent="."]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 isTop = true
 _speed = 100.0
-playAreaWidth = 400.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.60495, 0.299832 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="TPArea" type="Area2D" parent="."]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TPArea"]
 shape = SubResource( 1 )

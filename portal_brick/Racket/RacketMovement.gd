@@ -6,14 +6,14 @@ export var isTop: bool = false;
 var isActive : bool = true;
 
 # Racket movement speed
-export var _speed : float = 10; 
+export var _speed : float = 300; 
 var _actualSpeed : float = 0;
 
 # Play area variables must be in another script (some kind of manager)
 # Play area origin
 export var playAreaOrigin : Vector2 = Vector2.RIGHT * 200 - Vector2.UP * 110;
 # Width of the play area
-export var playAreaWidth : float = 20;
+export var playAreaWidth : float = 400;
 
 # Width of the racket (in units)
 export var racketWidth : float = 5;
@@ -57,6 +57,5 @@ func _process(delta):
 		pass;
 		
 func Move(velocity: Vector2):
-	print(velocity);
 	var parent: Node2D = get_parent();
 	parent.global_position += velocity;
