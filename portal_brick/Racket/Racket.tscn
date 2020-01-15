@@ -9,8 +9,11 @@ extents = Vector2( 52.1301, 10 )
 [node name="KinematicBody2D" type="KinematicBody2D"]
 position = Vector2( 200, 110 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 isTop = true
-_speed = 100.0
+_speed = 300.0
 playAreaWidth = 220.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
