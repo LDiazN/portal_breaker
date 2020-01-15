@@ -22,6 +22,19 @@ export var racketWidth : float = 5;
 func _ready():
 	isTop = get_parent()._isTopOne;
 
+# Conectar a la senal de game_over y de perdida de pelota o shooting_phase
+func DisableRacket():
+	isActive = false;
+
+# Conectar a la senal de que se disparo la pelota 
+func EnableRacket():
+	isActive = true;
+	
+# Just moves the racket
+func Move(velocity: Vector2):
+	var parent: Node2D = get_parent();
+	parent.global_position += velocity;
+	
 func _process(delta):
 	if (!isActive):
 		return;
@@ -29,8 +42,6 @@ func _process(delta):
 	_actualSpeed = 0;
 	
 	# Receives top/bottom player input
-	# Bottom player moves with A/D
-	# Top player moves with LEFT/RIGHT
 	if (!isTop):
 		if (Input.is_action_pressed("b_racket_left")):
 			_actualSpeed = -_speed
@@ -56,6 +67,3 @@ func _process(delta):
 	else:
 		pass;
 		
-func Move(velocity: Vector2):
-	var parent: Node2D = get_parent();
-	parent.global_position += velocity;

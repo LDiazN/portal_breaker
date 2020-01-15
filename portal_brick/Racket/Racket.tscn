@@ -24,5 +24,7 @@ texture = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TPArea"]
+rotation = 3.14159
 shape = SubResource( 1 )
+one_way_collision = true
 [connection signal="body_entered" from="TPArea" to="TPArea" method="_on_TPArea_body_entered"]
