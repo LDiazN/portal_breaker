@@ -1,7 +1,7 @@
 extends Node2D;
 
 # Is the top player racket or the bottom one?
-export var isTop: bool = false;
+var isTop: bool = false;
 
 var isActive : bool = true;
 
@@ -20,7 +20,7 @@ export var racketWidth : float = 5;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	isTop = get_parent()._isTopOne;
 
 func _process(delta):
 	if (!isActive):

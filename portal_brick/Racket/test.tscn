@@ -3,8 +3,6 @@
 [ext_resource path="res://Racket/Racket.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Racket/TestKiBall.gd" type="Script" id=2]
 
-
-
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="Node2D" type="Node2D"]
@@ -12,12 +10,13 @@
 [node name="Racket" parent="." instance=ExtResource( 1 )]
 position = Vector2( 50, 200 )
 _linkedToPath = NodePath("../Racket2")
+_isTopOne = true
 
 [node name="Racket2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 50, 10 )
+position = Vector2( 130, 10 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 50, 80 )
+position = Vector2( 90, 110 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]

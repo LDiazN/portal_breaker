@@ -9,5 +9,5 @@ func _ready():
 	pass # Replace with function body.
 
 func _physics_process(delta):
-	global_position += Vector2.DOWN * 9.8;
+	global_position += Vector2.DOWN * 4;
 

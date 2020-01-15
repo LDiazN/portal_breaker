@@ -13,5 +13,5 @@ func _on_TPArea_body_entered(body):
 	if (!_isActive):
 		return;
 	if (_linkedPortal != null):
-		# var enterVel : Vector2 = body.linear_velocity;
-		body.global_position = _linkedPortal.global_position
+		var diff : float = (body.global_position.x - global_position.x);
+		body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff;
