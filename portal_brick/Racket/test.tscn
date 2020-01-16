@@ -16,4 +16,4 @@ _isTopOne = false
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 position = Vector2( 190, 80 )
-speed = 70.0
+speed = 100.0

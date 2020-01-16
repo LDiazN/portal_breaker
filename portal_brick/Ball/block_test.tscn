@@ -8,12 +8,9 @@
 
 [node name="Ball" parent="." instance=ExtResource( 1 )]
 position = Vector2( 331.671, 47.6136 )
-speed = 60.0
 
 [node name="Tiles2" parent="." instance=ExtResource( 2 )]
 tile_data = PoolIntArray(  )
 
 [node name="Tiles" parent="." instance=ExtResource( 3 )]
 tile_data = PoolIntArray( 327684, 0, 0, 327685, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 589828, 0, 0, 589829, 0, 0 )
-[connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
-[connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
