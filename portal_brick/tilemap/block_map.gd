@@ -8,7 +8,7 @@ extends TileMap
 #	param:
 #		pos: Contact point between thhe ball and some tile
 #		in this tilemap
-func _on_brick_found(pos : Vector2) -> void:
+
+func _on_Ball_brick_found(pos):
 	var tile_pos : Vector2 = world_to_map(pos)
 	set_cellv(tile_pos, -1);
-

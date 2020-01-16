@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Racket/Racket.gd" type="Script" id=1]
+[ext_resource path="res://Racket/RacketMovement.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://Racket/TPArea.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 50.2152, 10 )
+
+[node name="Racket" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Movement System" type="Node2D" parent="."]
+script = ExtResource( 2 )
+_speed = 100.0
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 1.60495, 0.299832 )
+texture = ExtResource( 3 )
+
+[node name="TPArea" type="Area2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TPArea"]
+rotation = 3.14159
+shape = SubResource( 1 )
+one_way_collision = true
+[connection signal="body_entered" from="TPArea" to="TPArea" method="_on_TPArea_body_entered"]

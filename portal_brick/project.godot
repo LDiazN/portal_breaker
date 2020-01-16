@@ -18,6 +18,11 @@ _global_script_class_icons={
 config/name="portal_brick"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayAreaManager="*res://GameManager/PlayAreaManager.tscn"
+GameManager="*res://GameManager/GameManager.tscn"
+
 [input]
 
 b_racket_left={
