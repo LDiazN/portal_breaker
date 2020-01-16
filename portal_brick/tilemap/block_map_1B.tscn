@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://tilemap/tile_set.tres" type="TileSet" id=1]
+[ext_resource path="res://tilemap/block_map.gd" type="Script" id=2]
+
+[node name="TileMap_Squares" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0 )
+script = ExtResource( 2 )
