@@ -1,10 +1,142 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 100
+outline_color = Color( 1, 1, 1, 0 )
 font_data = ExtResource( 1 )
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float stripes_number = 100;
+uniform float line_blur = 1.;
+uniform float brightness = 0.1;
+uniform float time_scale = 0.005;
+
+uniform float a : hint_range(0.0,1.0);
+uniform float b : hint_range(0.0,1.0);
+uniform float c : hint_range(0.0,1.0);
+uniform float h : hint_range(0.0,1.0);
+uniform float alpha : hint_range(-1.,1.);
+
+float gaussian(float x){
+	return a*exp(-pow(x - b,2.0)/(2.0*pow(c,2.0)))-h;
+}
+
+vec3 plot(vec2 uv,float y){
+	return vec3(smoothstep(y-0.01,y,uv.y)-smoothstep(y,y+0.01,uv.y));
+}
+
+vec3 draw_stripe(in vec2 uv){
+	vec2 new_uv = uv;
+	float stripe_h = 1./stripes_number;
+	float parity = (new_uv.y/stripe_h);
+	vec3 color = vec3(smoothstep(1.,1. + line_blur,mod(parity,2.0)));
+	
+	new_uv.y = 1. - new_uv.y;
+	parity = (new_uv.y/stripe_h);
+	color += vec3(smoothstep(1.,1. + line_blur,mod(parity,2.0)));
+
+	return color;
+}
+void fragment(){
+	vec2 new_uv = SCREEN_UV;
+	new_uv.y += gaussian(new_uv.x)*(new_uv.y*2.-1.)*alpha;
+	new_uv.y += TIME*time_scale;
+
+	COLOR.rgb = draw_stripe(new_uv);
+	COLOR.rgb =texture(SCREEN_TEXTURE,SCREEN_UV).rgb + draw_stripe(new_uv)*brightness;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/stripes_number = 249.92
+shader_param/line_blur = 1.02
+shader_param/brightness = 0.01
+shader_param/time_scale = 0.005
+shader_param/a = 1.0
+shader_param/b = 0.5
+shader_param/c = 1.0
+shader_param/h = null
+shader_param/alpha = -0.2
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 hdr_treshold_center : hint_color;
+uniform float hdr_treshold_radius = .8;
+
+uniform float glow_level = 2.0;
+
+vec4 sample_pixel_glow(sampler2D tex, vec2 uv,float lod){
+	vec4 color = textureLod(tex,uv,lod);
+	float dist_to_center = pow(color.x-hdr_treshold_center.x,2.) + pow(color.y-hdr_treshold_center.y,2.);
+	float radius = pow(hdr_treshold_radius,2.);
+	
+	return max(color - vec4(smoothstep(0.,radius,dist_to_center)),vec4(0.0));
+}
+
+void fragment(){
+	
+	vec2 pizel_size = SCREEN_PIXEL_SIZE;
+	
+	float new_glow_level = glow_level + (sin(TIME*60.)+1.)/5.;
+	
+	vec4 sum = sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0,-pizel_size.y) ,new_glow_level); //top
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(pizel_size.x,0.) ,new_glow_level); //right
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(0.,pizel_size.y) ,new_glow_level); //down
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2( -pizel_size.x,0.) ,new_glow_level); //left
+	
+	
+	COLOR.rgb = texture(SCREEN_TEXTURE,SCREEN_UV).rgb + .25*sum.rgb;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/hdr_treshold_center = Color( 0.0235294, 0.027451, 0.203922, 1 )
+shader_param/hdr_treshold_radius = 4.23
+shader_param/glow_level = 2.9
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+
+uniform float blur_distance = 1;
+uniform float hdr_threshold = 1.0;
+uniform float hdr_threshold_2 = 1.0;
+
+vec4 sample_glow_pixel(sampler2D tex,vec2 uv){
+	
+	return max(textureLod(tex,uv,2.0)-hdr_threshold,vec4(0.0));
+}
+
+
+void fragment(){
+	vec2 pixel_size = SCREEN_PIXEL_SIZE;
+	vec4 left = sample_glow_pixel(SCREEN_TEXTURE,SCREEN_UV - vec2(pixel_size.x,0.));
+	vec4 right = sample_glow_pixel(SCREEN_TEXTURE,SCREEN_UV + vec2(pixel_size.x,0.));
+	vec4 top = sample_glow_pixel(SCREEN_TEXTURE,SCREEN_UV - vec2(0.,pixel_size.y));
+	vec4 down = sample_glow_pixel(SCREEN_TEXTURE,SCREEN_UV + vec2(0.,pixel_size.y));
+	
+	COLOR = texture(SCREEN_TEXTURE,SCREEN_UV) + .25*(left + right + top + down);
+
+	COLOR = texture(SCREEN_TEXTURE,SCREEN_UV) + .25*(left + right + top + down);
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/blur_distance = 1.0
+shader_param/hdr_threshold = 0.04
+shader_param/hdr_threshold_2 = 1.0
 
 [node name="Node2D" type="Node2D"]
 
@@ -12,10 +144,11 @@ font_data = ExtResource( 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="Menu"]
+[node name="background" type="ColorRect" parent="Menu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 980.0
@@ -26,9 +159,36 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="Menu"]
-margin_left = 260.0
-margin_top = 170.0
-margin_right = 350.0
-margin_bottom = 240.0
+modulate = Color( 0.752941, 1, 0.74902, 1 )
+anchor_right = 1.0
+margin_top = 46.0
+margin_right = 980.0
+margin_bottom = 176.0
 custom_fonts/font = SubResource( 1 )
-text = "awsd"
+text = "Portal Breaker"
+align = 1
+
+[node name="stripes" type="ColorRect" parent="Menu"]
+material = SubResource( 3 )
+margin_top = -3.05176e-05
+margin_right = 1020.0
+margin_bottom = 600.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Menu"]
+position = Vector2( 490, 260 )
+scale = Vector2( 5.9, 3.6 )
+copy_mode = 2
+
+[node name="Screen_Glow2" type="ColorRect" parent="Menu"]
+material = SubResource( 7 )
+margin_top = -6.10352e-05
+margin_right = 1020.0
+margin_bottom = 600.0
+
+[node name="Screen_Glow1" type="ColorRect" parent="Menu"]
+visible = false
+material = SubResource( 5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 980.0
+margin_bottom = 560.0
