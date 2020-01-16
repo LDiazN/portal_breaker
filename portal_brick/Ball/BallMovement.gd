@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
 export var speed : float = 10;
-var dir : Vector2 = Vector2.DOWN;
+var dir : Vector2 = Vector2.DOWN + Vector2.RIGHT;
 var isMoving : bool = false;
 
 signal ball_out;
+signal brick_found;
 
 func _ready():
 	isMoving = false;
@@ -12,9 +13,11 @@ func _ready():
 	GameManager.connect("game_started", self, "EnableBall");
 	GameManager.connect("game_over", self, "DestroyBall");
 
+# Enables ball movement
 func EnableBall():
 	isMoving = true;
 	
+# Destroy ball
 func DestroyBall():
 	queue_free();
 	
@@ -30,3 +33,5 @@ func _physics_process(delta):
 		var normal : Vector2 = coll.normal;
 		var reflex : Vector2 = dir.bounce(normal);
 		dir = reflex;
+		if (coll.collider.name == "Tiles" or coll.collider.name == "Tiles2"):
+			emit_signal("brick_found", coll.position - coll.normal);

@@ -1,10 +1,13 @@
 extends Node2D
 
+# Sent when the game is over
 signal game_over;
+# Sent when its shooting phase
 signal shooting_phase;
+# Sent when the game starts
 signal game_started;
 
-var counterStart : float = 4;
+export var counterStart : float = 1;
 var gameStarted : bool = false;
 
 export var lives : int = 3;
