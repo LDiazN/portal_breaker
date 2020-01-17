@@ -13,6 +13,7 @@ func _ready():
 	
 	ki.connect("ball_out", self, "RespawnBall");
 
+# Respawns ball and sets its position
 func RespawnBall():
 	if (GameManager.lives <= 0):
 		return;
@@ -23,18 +24,17 @@ func RespawnBall():
 	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * PlayAreaManager.height).y):
 		print("por arriba");
 		if (topRacket != null):
-			print(topRacket.global_position)
 			ki.global_position = topRacket.global_position + Vector2.DOWN * 20;
 		else:
-			print("error");
 			ki.global_position = PlayAreaManager.origin;
+		topRacket.get_node("Shooting System").MoreShooty();
 	# Si se fue por abajo
 	elif (global_position.y > (PlayAreaManager.origin + Vector2.DOWN * PlayAreaManager.height).y):
 		if (bottomRacket != null):
 			ki.global_position = bottomRacket.global_position + Vector2.UP * 20;
 		else:
 			ki.global_position = PlayAreaManager.origin;
-			print("error");
+		bottomRacket.get_node("Shooting System").MoreShooty();
 		print("por abajo");
 	
 	

@@ -14,12 +14,33 @@ editor_draw_limits = true
 [node name="Racket" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 200 )
 _linkedToPath = NodePath("../Racket2")
-_isTopOne = false
+
+[node name="Shooting System" parent="Racket" index="0"]
+ballPath = NodePath("../../Ball")
+isShooting = false
+
+[node name="Movement System" parent="Racket" index="1"]
+ballPath = NodePath("../../Ball")
+_speed = 200.0
+
+[node name="TPArea" parent="Racket" index="3"]
+editor/display_folded = true
 
 [node name="Racket2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 10 )
 _linkedToPath = NodePath("../Racket")
 _isTopOne = true
+
+[node name="Shooting System" parent="Racket2" index="0"]
+ballPath = NodePath("../../Ball")
+isShooting = false
+
+[node name="Movement System" parent="Racket2" index="1"]
+ballPath = NodePath("../../Ball")
+_speed = 200.0
+
+[node name="TPArea" parent="Racket2" index="3"]
+editor/display_folded = true
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0.290196, 1, 0, 1 )
@@ -31,5 +52,9 @@ isMoving = true
 [node name="RespawnSystem" parent="Ball" index="2"]
 topRacketPath = NodePath("../../Racket2")
 bottomRacketPath = NodePath("../../Racket")
+
+[editable path="Racket"]
+
+[editable path="Racket2"]
 
 [editable path="Ball"]

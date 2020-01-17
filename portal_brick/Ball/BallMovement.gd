@@ -16,8 +16,15 @@ func _ready():
 # Enables ball movement
 func EnableBall():
 	isMoving = true;
+	
+# Disables ball movement
 func DisableBall():
 	isMoving = false;
+	
+# Changes ball movement dir and shoots the ball
+func ShootMe(newDir : Vector2):
+	dir = newDir;
+	EnableBall();
 	
 # Destroy ball
 func DestroyBall():
@@ -29,10 +36,12 @@ func _physics_process(delta):
 		
 	var coll = move_and_collide(dir * speed * delta);
 	
+	# Checks if the ball is in the play area
 	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * PlayAreaManager.height).y or
 		global_position.y > (PlayAreaManager.origin + Vector2.DOWN * PlayAreaManager.height).y):
 		emit_signal("ball_out");
 		
+	# Process the collisions;
 	if (coll != null):
 		var normal : Vector2 = coll.normal;
 		var reflex : Vector2 = dir.bounce(normal);

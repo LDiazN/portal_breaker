@@ -1,8 +1,9 @@
 extends Node2D;
 
+export var ballPath : NodePath;
+var ball : KinematicBody2D;
 # Is the top player racket or the bottom one?
 var isTop: bool = false;
-
 var isActive : bool = true;
 
 # Racket movement speed
@@ -26,7 +27,10 @@ func _ready():
 	isTop = get_parent()._isTopOne;
 	playAreaOrigin = PlayAreaManager.origin;
 	playAreaWidth = PlayAreaManager.width;
+	ball = get_node(ballPath);
 	
+	if (ball != null):
+		ball.connect("ball_out", self,"DisableRacket");
 	GameManager.connect("game_started", self, "EnableRacket");
 	GameManager.connect("game_over", self, "DisableRacket");
 
@@ -42,7 +46,6 @@ func EnableRacket():
 func Move(velocity: Vector2):
 	var parent: Node2D = get_parent();
 	parent.position += velocity;
-	print(parent.position)
 
 func _process(delta):
 	#print(Input.is_action_pressed("b_racket_left"))
@@ -52,7 +55,6 @@ func _process(delta):
 	_actualSpeed = 0;
 	# Receives top/bottom player input
 	if (!isTop):
-		print(Input.is_action_pressed("b_racket_left"))
 		if (Input.is_action_pressed("b_racket_left")):
 			_actualSpeed = -_speed
 		elif (Input.is_action_pressed("b_racket_right")):
