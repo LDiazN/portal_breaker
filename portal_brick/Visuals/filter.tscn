@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float stripes_number = 100;
+uniform float line_blur = 1.;
+uniform float brightness = 0.1;
+uniform float time_scale = 0.005;
+
+uniform float a : hint_range(0.0,1.0);
+uniform float b : hint_range(0.0,1.0);
+uniform float c : hint_range(0.0,1.0);
+uniform float h : hint_range(0.0,1.0);
+uniform float alpha : hint_range(-1.,1.);
+
+float gaussian(float x){
+	return a*exp(-pow(x - b,2.0)/(2.0*pow(c,2.0)))-h;
+}
+
+vec3 plot(vec2 uv,float y){
+	return vec3(smoothstep(y-0.01,y,uv.y)-smoothstep(y,y+0.01,uv.y));
+}
+
+vec3 draw_stripe(in vec2 uv){
+	vec2 new_uv = uv;
+	float stripe_h = 1./stripes_number;
+	float parity = (new_uv.y/stripe_h);
+	vec3 color = vec3(smoothstep(1.,1. + line_blur,mod(parity,2.0)));
+	
+	new_uv.y = 1. - new_uv.y;
+	parity = (new_uv.y/stripe_h);
+	color += vec3(smoothstep(1.,1. + line_blur,mod(parity,2.0)));
+
+	return color;
+}
+void fragment(){
+	vec2 new_uv = SCREEN_UV;
+	new_uv.y += gaussian(new_uv.x)*(new_uv.y*2.-1.)*alpha;
+	new_uv.y += TIME*time_scale;
+
+	COLOR.rgb = draw_stripe(new_uv);
+	COLOR.rgb =texture(SCREEN_TEXTURE,SCREEN_UV).rgb + draw_stripe(new_uv)*brightness;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/stripes_number = 249.92
+shader_param/line_blur = 1.02
+shader_param/brightness = 0.01
+shader_param/time_scale = 0.005
+shader_param/a = 1.0
+shader_param/b = 0.5
+shader_param/c = 1.0
+shader_param/h = null
+shader_param/alpha = -0.2
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform vec4 hdr_treshold_center : hint_color;
+uniform float hdr_treshold_radius = .8;
+
+uniform float glow_level = 2.0;
+
+vec4 sample_pixel_glow(sampler2D tex, vec2 uv,float lod){
+	vec4 color = textureLod(tex,uv,lod);
+	float dist_to_center = pow(color.x-hdr_treshold_center.x,2.) + pow(color.y-hdr_treshold_center.y,2.);
+	float radius = pow(hdr_treshold_radius,2.);
+	
+	return max(color - vec4(smoothstep(0.,radius,dist_to_center)),vec4(0.0));
+}
+
+void fragment(){
+	
+	vec2 pizel_size = SCREEN_PIXEL_SIZE;
+	
+	float new_glow_level = glow_level + (sin(TIME*60.)+1.)/5.;
+	
+	vec4 sum = sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(0.0,-pizel_size.y) ,new_glow_level); //top
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(pizel_size.x,0.) ,new_glow_level); //right
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2(0.,pizel_size.y) ,new_glow_level); //down
+	sum += sample_pixel_glow(SCREEN_TEXTURE, SCREEN_UV + vec2( -pizel_size.x,0.) ,new_glow_level); //left
+	
+	
+	COLOR.rgb = texture(SCREEN_TEXTURE,SCREEN_UV).rgb + .25*sum.rgb;
+	
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/hdr_treshold_center = Color( 0.0235294, 0.027451, 0.203922, 1 )
+shader_param/hdr_treshold_radius = 4.23
+shader_param/glow_level = 2.9
+
+[node name="filter" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="stripes" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_top = -3.05176e-05
+margin_right = 1025.0
+margin_bottom = 600.0
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+position = Vector2( 490, 260 )
+scale = Vector2( 5.9, 3.6 )
+copy_mode = 2
+
+[node name="Screen_Glow2" type="ColorRect" parent="."]
+material = SubResource( 4 )
+margin_top = -6.10352e-05
+margin_right = 1025.0
+margin_bottom = 600.0
