@@ -5,15 +5,31 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 270, 300 )
+current = true
+zoom = Vector2( 2.68, 3.97 )
+editor_draw_limits = true
+
 [node name="Racket" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 200 )
 _linkedToPath = NodePath("../Racket2")
-_isTopOne = true
+_isTopOne = false
 
 [node name="Racket2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 10 )
-_isTopOne = false
+_linkedToPath = NodePath("../Racket")
+_isTopOne = true
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
-position = Vector2( 190, 80 )
+modulate = Color( 0.290196, 1, 0, 1 )
+position = Vector2( 200, 180 )
 speed = 100.0
+dir = Vector2( 1, -1 )
+isMoving = true
+
+[node name="RespawnSystem" parent="Ball" index="2"]
+topRacketPath = NodePath("../../Racket2")
+bottomRacketPath = NodePath("../../Racket")
+
+[editable path="Ball"]

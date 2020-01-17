@@ -7,16 +7,6 @@ export var isMoving : bool = false;
 signal ball_out;
 signal brick_found;
 
-export var topRacketPath: NodePath;
-export var bottomRacketPath: NodePath;
-
-var topRacket;
-var bottomRacket;
-
-func _enter_tree():
-	topRacket = get_node(topRacketPath);
-	bottomRacket = get_node(bottomRacketPath);
-	
 func _ready():
 	isMoving = false;
 	

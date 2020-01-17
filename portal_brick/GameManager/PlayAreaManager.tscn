@@ -4,4 +4,5 @@
 
 [node name="PlayAreaManager" type="Node2D"]
 script = ExtResource( 1 )
-origin = Vector2( 200, 220 )
+origin = Vector2( 200, 170 )
+height = 170.0
