@@ -41,16 +41,18 @@ func EnableRacket():
 # Just moves the racket
 func Move(velocity: Vector2):
 	var parent: Node2D = get_parent();
-	parent.global_position += velocity;
+	parent.position += velocity;
+	print(parent.position)
 
 func _process(delta):
+	#print(Input.is_action_pressed("b_racket_left"))
 	if (!isActive):
 		return;
 		
 	_actualSpeed = 0;
-	
 	# Receives top/bottom player input
 	if (!isTop):
+		print(Input.is_action_pressed("b_racket_left"))
 		if (Input.is_action_pressed("b_racket_left")):
 			_actualSpeed = -_speed
 		elif (Input.is_action_pressed("b_racket_right")):
@@ -60,8 +62,7 @@ func _process(delta):
 			_actualSpeed = -_speed
 		elif (Input.is_action_pressed("t_racket_right")):
 			_actualSpeed = _speed;
-	
-	 Move(Vector2.RIGHT * _actualSpeed * delta);
+	Move(Vector2.RIGHT * _actualSpeed * delta);
 	
 	# Keeps racket inside play area
 	# Maybe make a function

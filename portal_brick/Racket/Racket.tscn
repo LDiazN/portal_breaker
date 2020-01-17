@@ -10,6 +10,7 @@ extents = Vector2( 50.2152, 10 )
 
 [node name="Racket" type="Node2D"]
 script = ExtResource( 1 )
+_isTopOne = false
 
 [node name="Movement System" type="Node2D" parent="."]
 script = ExtResource( 2 )
