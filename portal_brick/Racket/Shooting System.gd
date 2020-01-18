@@ -2,9 +2,12 @@ extends Node2D
 export var ballPath : NodePath;
 var ball : KinematicBody2D;
 
+# Indicates if the shooting system is active
 export var isActive : bool = false;
+# Indicates if the racket is shooting
 export var isShooting: bool = false;
-
+# Indicates if it is the top racket
+var isTop;
 var gameManager;
 
 func _ready():
@@ -12,6 +15,7 @@ func _ready():
 	gameManager = get_node("../../GameManager");
 	if (ball == null):
 		print("No ball setted up :( BIG F");
+	isTop = get_parent()._isTopOne;
 		
 # Disables the shooting
 func NoMoreShooty():
