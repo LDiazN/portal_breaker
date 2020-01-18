@@ -26,5 +26,5 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="test_body"]
 position = Vector2( 20, 50 )
 texture = ExtResource( 4 )
-[connection signal="brick_found" from="test_body" to="TileMap_Squares2" method="_on_brick_found"]
 [connection signal="brick_found" from="test_body" to="TileMap_Squares" method="_on_brick_found"]
+[connection signal="brick_found" from="test_body" to="TileMap_Squares2" method="_on_brick_found"]

@@ -5,37 +5,51 @@ export var bottomRacketPath: NodePath;
 var topRacket = null;
 var bottomRacket = null;
 
+signal ball_out;
+
+var playAreaManager;
+var gameManager;
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var ki = get_parent();
+	playAreaManager = get_node("../../PlayAreaManager")
+	gameManager = get_node("../../GameManager");
 	topRacket = get_node(topRacketPath);
 	bottomRacket = get_node(bottomRacketPath);
 	
-	ki.connect("ball_out", self, "RespawnBall");
 
+func _process(delta):
+	RespawnBall();
+
+# Respawns ball and sets its position
 func RespawnBall():
-	if (GameManager.lives <= 0):
+	if (gameManager.lives <= 0):
 		return;
 	var ki = get_parent();
-	ki.DisableBall();
-	
+
 	# Si se fue por arriba
-	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * PlayAreaManager.height).y):
+	if (global_position.y < (playAreaManager.origin + Vector2.UP * (playAreaManager.height + 10)).y):
 		print("por arriba");
+		ki.DisableBall();
 		if (topRacket != null):
-			print(topRacket.global_position)
 			ki.global_position = topRacket.global_position + Vector2.DOWN * 20;
+			print(topRacket.global_position)
 		else:
-			print("error");
-			ki.global_position = PlayAreaManager.origin;
+			ki.global_position = playAreaManager.origin;
+		emit_signal("ball_out");
+		gameManager.loose_life();	
+		topRacket.get_node("Shooting System").MoreShooty();
 	# Si se fue por abajo
-	elif (global_position.y > (PlayAreaManager.origin + Vector2.DOWN * PlayAreaManager.height).y):
+	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 10)).y):
+		ki.DisableBall();
 		if (bottomRacket != null):
 			ki.global_position = bottomRacket.global_position + Vector2.UP * 20;
 		else:
-			ki.global_position = PlayAreaManager.origin;
-			print("error");
-		print("por abajo");
+			ki.global_position = playAreaManager.origin;
+		emit_signal("ball_out");
+		gameManager.loose_life();
+		bottomRacket.get_node("Shooting System").MoreShooty();
 	
 	
 
