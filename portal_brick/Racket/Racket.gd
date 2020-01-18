@@ -6,8 +6,7 @@ export var _isTopOne: bool;
 func _ready():
 	if (_isTopOne):
 		position = PlayAreaManager.origin + Vector2.UP * PlayAreaManager.height;
-		
 		global_rotation_degrees = 180;
 	else:
 		position = PlayAreaManager.origin - Vector2.UP * PlayAreaManager.height;
-		print(position)
+	print(global_position)

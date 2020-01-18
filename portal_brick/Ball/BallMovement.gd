@@ -37,8 +37,8 @@ func _physics_process(delta):
 	var coll = move_and_collide(dir * speed * delta);
 	
 	# Checks if the ball is in the play area
-	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * PlayAreaManager.height).y or
-		global_position.y > (PlayAreaManager.origin + Vector2.DOWN * PlayAreaManager.height).y):
+	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * (PlayAreaManager.height + 10)).y or
+		global_position.y > (PlayAreaManager.origin + Vector2.DOWN * (PlayAreaManager.height + 10)).y):
 		emit_signal("ball_out");
 		
 	# Process the collisions;

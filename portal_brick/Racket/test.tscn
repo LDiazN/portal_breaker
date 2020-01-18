@@ -20,11 +20,12 @@ ballPath = NodePath("../../Ball")
 isShooting = false
 
 [node name="Movement System" parent="Racket" index="1"]
-ballPath = NodePath("../../Ball")
 _speed = 200.0
+ballPath = NodePath("../../Ball")
 
 [node name="TPArea" parent="Racket" index="3"]
 editor/display_folded = true
+position = Vector2( 0, 9.59462 )
 
 [node name="Racket2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 190, 10 )
@@ -36,11 +37,12 @@ ballPath = NodePath("../../Ball")
 isShooting = false
 
 [node name="Movement System" parent="Racket2" index="1"]
-ballPath = NodePath("../../Ball")
 _speed = 200.0
+ballPath = NodePath("../../Ball")
 
 [node name="TPArea" parent="Racket2" index="3"]
 editor/display_folded = true
+position = Vector2( 0, 9.59462 )
 
 [node name="Ball" parent="." instance=ExtResource( 2 )]
 modulate = Color( 0.290196, 1, 0, 1 )
