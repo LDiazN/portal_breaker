@@ -99,12 +99,14 @@ shader_param/glow_level = 2.9
 [node name="filter" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 
 [node name="stripes" type="ColorRect" parent="."]
 material = SubResource( 2 )
 margin_top = -3.05176e-05
 margin_right = 1025.0
 margin_bottom = 600.0
+mouse_filter = 2
 
 [node name="BackBufferCopy" type="BackBufferCopy" parent="."]
 position = Vector2( 490, 260 )
@@ -116,3 +118,4 @@ material = SubResource( 4 )
 margin_top = -6.10352e-05
 margin_right = 1025.0
 margin_bottom = 600.0
+mouse_filter = 2
