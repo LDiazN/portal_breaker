@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Racket/Racket.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=2]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 240 )
+[ext_resource path="res://GameManager/PlayAreaManager.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameManager/GameManager.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Racket/Racket.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="PlayAreaManager" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0.405376 )
+origin = Vector2( 200, 500 )
+height = 500.0
+
+[node name="GameManager" parent="." instance=ExtResource( 2 )]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 270, 300 )
@@ -14,8 +20,7 @@ current = true
 zoom = Vector2( 2.68, 3.97 )
 editor_draw_limits = true
 
-[node name="Racket" parent="." instance=ExtResource( 1 )]
-editor/display_folded = true
+[node name="Racket" parent="." instance=ExtResource( 3 )]
 position = Vector2( 190, 200 )
 _linkedToPath = NodePath("../Racket2")
 
@@ -31,7 +36,7 @@ _speed = 200.0
 editor/display_folded = true
 position = Vector2( 0, 9.59462 )
 
-[node name="Racket2" parent="." instance=ExtResource( 1 )]
+[node name="Racket2" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 190, 10 )
 _linkedToPath = NodePath("../Racket")
@@ -49,8 +54,7 @@ _speed = 200.0
 editor/display_folded = true
 position = Vector2( 0, 9.59462 )
 
-[node name="Ball" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
+[node name="Ball" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.290196, 1, 0, 1 )
 position = Vector2( 200, 180 )
 speed = 200.0
@@ -60,18 +64,6 @@ isMoving = true
 [node name="RespawnSystem" parent="Ball" index="2"]
 topRacketPath = NodePath("../../Racket2")
 bottomRacketPath = NodePath("../../Racket")
-
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 330, 130 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 1 )
-
-[node name="KinematicBody2D2" type="KinematicBody2D" parent="."]
-position = Vector2( -10, 140 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D2"]
-shape = SubResource( 1 )
 
 [editable path="Racket"]
 

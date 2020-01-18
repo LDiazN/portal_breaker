@@ -21,19 +21,27 @@ var playAreaWidth : float;
 # this is half
 export var racketWidth : float = 5;
 
+var playAreaManager;
+var gameManager;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	isActive = false;
 	isTop = get_parent()._isTopOne;
-	playAreaOrigin = PlayAreaManager.origin;
-	playAreaWidth = PlayAreaManager.width;
+	
+	gameManager = get_node("../../GameManager");
+	playAreaManager = get_node("../../PlayAreaManager");
 	ball = get_node(ballPath);
+	
+	
+	playAreaOrigin = playAreaManager.origin;
+	playAreaWidth = playAreaManager.width;
 	
 	if (ball != null):
 		ball.get_node("RespawnSystem").connect("ball_out", self, "DisableRacket");
 		ball.connect("ball_shot", self, "EnableRacket");
-	GameManager.connect("game_started", self, "EnableRacket");
-	GameManager.connect("game_over", self, "DisableRacket");
+		
+	gameManager.connect("game_started", self, "EnableRacket");
+	gameManager.connect("game_over", self, "DisableRacket");
 
 # Conectar a la senal de game_over y de perdida de pelota o shooting_phase
 func DisableRacket():

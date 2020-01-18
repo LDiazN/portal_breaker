@@ -5,20 +5,23 @@ var ball : KinematicBody2D;
 export var isActive : bool = false;
 export var isShooting: bool = false;
 
+var gameManager;
+
+func _ready():
+	ball = get_node(ballPath);	
+	gameManager = get_node("../../GameManager");
+	if (ball == null):
+		print("No ball setted up :( BIG F");
+		
 # Disables the shooting
 func NoMoreShooty():
 	isShooting = false;
 
 # Enables the shooting 
 func MoreShooty():
-	if (GameManager.lives > 0):
+	if (gameManager.lives > 0):
 		isShooting = true;
-	
-func _ready():
-	ball = get_node(ballPath);	
-	if (ball == null):
-		print("No ball setted up :( BIG F");
-		
+
 func _process(delta):
 	if (!isActive):
 		return;

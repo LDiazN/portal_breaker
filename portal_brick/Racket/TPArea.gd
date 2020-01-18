@@ -12,6 +12,8 @@ func _on_TPArea_body_entered(body):
 	# We need height and that kind of shit
 	if (!_isActive):
 		return;
+	if (body.name != "Ball"):
+		return;
 	if (_linkedPortal != null):
 		var diff : float = (body.global_position.x - global_position.x);
 		# El -1 del transform es just because fuck you godot

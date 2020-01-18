@@ -9,11 +9,14 @@ signal brick_found;
 # Emitted when the ball is shot
 signal ball_shot;
 
+var gameManager;
+
 func _ready():
 	isMoving = false;
+	gameManager = get_node("../GameManager");
 	
-	GameManager.connect("game_started", self, "EnableBall");
-	GameManager.connect("game_over", self, "DestroyBall");
+	gameManager.connect("game_started", self, "EnableBall");
+	gameManager.connect("game_over", self, "DestroyBall");
 
 # Enables ball movement
 func EnableBall():

@@ -1,9 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://GameManager/PlayAreaManager.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 190 )
 
 [node name="PlayAreaManager" type="Node2D"]
 script = ExtResource( 1 )
 origin = Vector2( 200, 170 )
 width = 300.0
 height = 170.0
+
+[node name="LW" type="KinematicBody2D" parent="."]
+position = Vector2( -70, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LW"]
+shape = SubResource( 1 )
+
+[node name="RW" type="KinematicBody2D" parent="."]
+position = Vector2( 70, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RW"]
+shape = SubResource( 1 )
