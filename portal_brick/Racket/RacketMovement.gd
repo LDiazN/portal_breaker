@@ -30,7 +30,8 @@ func _ready():
 	ball = get_node(ballPath);
 	
 	if (ball != null):
-		ball.connect("ball_out", self,"DisableRacket");
+		ball.get_node("RespawnSystem").connect("ball_out", self, "DisableRacket");
+		ball.connect("ball_shot", self, "EnableRacket");
 	GameManager.connect("game_started", self, "EnableRacket");
 	GameManager.connect("game_over", self, "DisableRacket");
 
@@ -46,7 +47,7 @@ func EnableRacket():
 func Move(velocity: Vector2):
 	var parent: Node2D = get_parent();
 	parent.position += velocity;
-
+	
 func _process(delta):
 	#print(Input.is_action_pressed("b_racket_left"))
 	if (!isActive):

@@ -6,6 +6,8 @@ export var isMoving : bool = false;
 
 signal ball_out;
 signal brick_found;
+# Emitted when the ball is shot
+signal ball_shot;
 
 func _ready():
 	isMoving = false;
@@ -24,6 +26,7 @@ func DisableBall():
 # Changes ball movement dir and shoots the ball
 func ShootMe(newDir : Vector2):
 	dir = newDir;
+	emit_signal("ball_shot")
 	EnableBall();
 	
 # Destroy ball
@@ -35,11 +38,6 @@ func _physics_process(delta):
 		return;
 		
 	var coll = move_and_collide(dir * speed * delta);
-	
-	# Checks if the ball is in the play area
-	if (global_position.y < (PlayAreaManager.origin + Vector2.UP * (PlayAreaManager.height + 10)).y or
-		global_position.y > (PlayAreaManager.origin + Vector2.DOWN * (PlayAreaManager.height + 10)).y):
-		emit_signal("ball_out");
 		
 	# Process the collisions;
 	if (coll != null):
