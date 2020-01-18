@@ -1,32 +1,36 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menu/fonts/main_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Menu/button.png" type="Texture" id=2]
-[ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://Visuals/filter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Menu/button_down.png" type="Texture" id=3]
+[ext_resource path="res://Menu/MenuButton.gd" type="Script" id=4]
+[ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Visuals/filter.tscn" type="PackedScene" id=6]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 41
-font_data = ExtResource( 3 )
+font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFontData" id=1]
+[sub_resource type="DynamicFontData" id=2]
 font_path = "res://Menu/fonts/typed.ttf"
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 20
-font_data = SubResource( 1 )
+font_data = SubResource( 2 )
 
 [node name="Node2D" type="Node2D"]
 
 [node name="background" type="ColorRect" parent="."]
 margin_right = 1025.0
 margin_bottom = 600.0
+mouse_filter = 2
 color = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_top = 25.0
 margin_right = 1020.0
 margin_bottom = 557.0
+mouse_filter = 2
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -48,6 +52,7 @@ align = 1
 margin_top = 120.0
 margin_right = 1020.0
 margin_bottom = 450.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -62,17 +67,30 @@ custom_constants/separation = 145
 alignment = 1
 
 [node name="Play" type="TextureButton" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
-editor/display_folded = true
 margin_right = 256.0
 margin_bottom = 128.0
+mouse_default_cursor_shape = 7
 size_flags_vertical = 0
 texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play"]
+[node name="light" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
+text = "Play"
+align = 1
+valign = 1
+
+[node name="dark" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play"]
+visible = false
+modulate = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
 text = "Play"
 align = 1
 valign = 1
@@ -83,13 +101,26 @@ margin_right = 657.0
 margin_bottom = 128.0
 size_flags_vertical = 0
 texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
+[node name="light" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 text = "Free Mode"
+align = 1
+valign = 1
+
+[node name="dark" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
+visible = false
+modulate = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+text = "Not yet :("
 align = 1
 valign = 1
 
@@ -98,12 +129,16 @@ modulate = Color( 0.764706, 1, 0.760784, 1 )
 margin_top = 454.0
 margin_right = 1020.0
 margin_bottom = 532.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "by
 Pedro Rodriguez
 Luis Diaz"
 align = 1
 
-[node name="filter" parent="." instance=ExtResource( 4 )]
+[node name="filter" parent="." instance=ExtResource( 6 )]
 margin_right = 1020.0
 margin_bottom = 600.0
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_exited"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_exited"]
