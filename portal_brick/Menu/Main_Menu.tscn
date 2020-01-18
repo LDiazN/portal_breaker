@@ -26,7 +26,7 @@ margin_bottom = 600.0
 mouse_filter = 2
 color = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Menu_UI" type="MarginContainer" parent="."]
 margin_top = 25.0
 margin_right = 1020.0
 margin_bottom = 557.0
@@ -36,11 +36,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu_UI"]
 margin_right = 1020.0
 margin_bottom = 532.0
 
-[node name="Main_title" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Main_title" type="Label" parent="Menu_UI/VBoxContainer"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 margin_right = 1020.0
 margin_bottom = 116.0
@@ -48,7 +48,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "Portal Breaker"
 align = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Menu_UI/VBoxContainer"]
 margin_top = 120.0
 margin_right = 1020.0
 margin_bottom = 450.0
@@ -56,7 +56,7 @@ mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu_UI/VBoxContainer/CenterContainer"]
 margin_left = 181.0
 margin_top = 101.0
 margin_right = 838.0
@@ -66,7 +66,7 @@ size_flags_vertical = 3
 custom_constants/separation = 145
 alignment = 1
 
-[node name="Play" type="TextureButton" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="Play" type="TextureButton" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer"]
 margin_right = 256.0
 margin_bottom = 128.0
 mouse_default_cursor_shape = 7
@@ -75,8 +75,9 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 3 )
 script = ExtResource( 4 )
+play_scene_path = "res://Playable_Scenes/PlayScene.tscn"
 
-[node name="light" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play"]
+[node name="light" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -85,7 +86,7 @@ text = "Play"
 align = 1
 valign = 1
 
-[node name="dark" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play"]
+[node name="dark" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play"]
 visible = false
 modulate = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
 anchor_right = 1.0
@@ -95,7 +96,7 @@ text = "Play"
 align = 1
 valign = 1
 
-[node name="Free Mode" type="TextureButton" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer"]
+[node name="Free Mode" type="TextureButton" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer"]
 margin_left = 401.0
 margin_right = 657.0
 margin_bottom = 128.0
@@ -105,7 +106,7 @@ texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 3 )
 script = ExtResource( 4 )
 
-[node name="light" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
+[node name="light" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -114,7 +115,7 @@ text = "Free Mode"
 align = 1
 valign = 1
 
-[node name="dark" type="Label" parent="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
+[node name="dark" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
 visible = false
 modulate = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
 anchor_right = 1.0
@@ -124,7 +125,7 @@ text = "Not yet :("
 align = 1
 valign = 1
 
-[node name="titles" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="titles" type="Label" parent="Menu_UI/VBoxContainer"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 margin_top = 454.0
 margin_right = 1020.0
@@ -138,7 +139,8 @@ align = 1
 [node name="filter" parent="." instance=ExtResource( 6 )]
 margin_right = 1020.0
 margin_bottom = 600.0
-[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_entered"]
-[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_exited"]
-[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_entered"]
-[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_exited"]
+[connection signal="button_up" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_button_up"]
+[connection signal="mouse_entered" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_entered"]
+[connection signal="mouse_exited" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_mouse_exited"]
+[connection signal="mouse_entered" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_entered"]
+[connection signal="mouse_exited" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode" method="_on_Play_mouse_exited"]
