@@ -25,7 +25,7 @@ timePerLevel = 1.0
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
 modulate = Color( 0.290196, 1, 0, 1 )
-position = Vector2( 150, 90 )
+position = Vector2( 190, 110 )
 speed = 200.0
 
 [node name="RespawnSystem" parent="Ball" index="2"]
@@ -53,7 +53,6 @@ _speed = 200.0
 racketWidth = 50.0
 
 [node name="TPArea" parent="Racket" index="3"]
-editor/display_folded = true
 position = Vector2( 0, 9.59462 )
 
 [node name="Racket2" parent="." instance=ExtResource( 5 )]
@@ -74,7 +73,6 @@ editor/display_folded = true
 position = Vector2( 0, 9.59462 )
 
 [node name="Tiles" parent="." instance=ExtResource( 6 )]
-tile_data = PoolIntArray( 327682, 0, 0 )
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 
 [editable path="Ball"]

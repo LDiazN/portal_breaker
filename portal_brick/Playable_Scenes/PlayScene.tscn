@@ -55,27 +55,30 @@ position = Vector2( 510, 550 )
 speed = 100.0
 color = Color( 0.764706, 1, 0.760784, 1 )
 
-[node name="Racket_left" parent="." instance=ExtResource( 5 )]
-position = Vector2( 512, 590 )
-_linkedToPath = NodePath("../Racket_right")
+[node name="RespawnSystem" parent="Ball" index="2"]
+topRacketPath = NodePath("../../TRacket")
+bottomRacketPath = NodePath("../../BRacket")
 
-[node name="Shooting System" parent="Racket_left" index="0"]
+[node name="BRacket" parent="." instance=ExtResource( 5 )]
+position = Vector2( 512, 590 )
+_linkedToPath = NodePath("../TRacket")
+
+[node name="Shooting System" parent="BRacket" index="0"]
 ballPath = NodePath("../../Ball")
 
-[node name="Movement System" parent="Racket_left" index="1"]
+[node name="Movement System" parent="BRacket" index="1"]
 ballPath = NodePath("../../Ball")
 _speed = 300.0
 
-[node name="Racket_right" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
+[node name="TRacket" parent="." instance=ExtResource( 5 )]
 position = Vector2( 512, 0 )
-_linkedToPath = NodePath("../Racket_left")
+_linkedToPath = NodePath("../BRacket")
 _isTopOne = true
 
-[node name="Shooting System" parent="Racket_right" index="0"]
+[node name="Shooting System" parent="TRacket" index="0"]
 ballPath = NodePath("../../Ball")
 
-[node name="Movement System" parent="Racket_right" index="1"]
+[node name="Movement System" parent="TRacket" index="1"]
 ballPath = NodePath("../../Ball")
 _speed = 300.0
 
@@ -196,6 +199,8 @@ visible = false
 [connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 
-[editable path="Racket_left"]
+[editable path="Ball"]
 
-[editable path="Racket_right"]
+[editable path="BRacket"]
+
+[editable path="TRacket"]
