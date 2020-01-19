@@ -34,6 +34,9 @@ func _ready():
 	
 	ball = get_node(ballPath);
 	ball.connect("brick_found", self, "checkIfWon");
+	
+	# 0 for bottom player and 1 for top player
+	var first : int = RandomNumberGenerator.new().randi_range(0,1);
 
 func _process(delta):
 	if (!gameStarted):
