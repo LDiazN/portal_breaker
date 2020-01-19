@@ -3,11 +3,14 @@ extends KinematicBody2D
 export var speed : float = 10;
 export var dir : Vector2 = Vector2.DOWN + Vector2.RIGHT;
 export var isMoving : bool = false;
+export var ball_radius : float = 16
+export var color : Color = Color.white;
 
 signal ball_out;
 signal brick_found;
 # Emitted when the ball is shot
 signal ball_shot;
+
 
 var gameManager;
 
@@ -49,3 +52,13 @@ func _physics_process(delta):
 		dir = reflex;
 		if (coll.collider.name == "Tiles" or coll.collider.name == "Tiles2"):
 			emit_signal("brick_found", coll.position - coll.normal);
+			
+func _draw():
+	draw_circle(Vector2.ZERO, ball_radius, color)
+	
+	
+	
+	
+	
+	
+	
