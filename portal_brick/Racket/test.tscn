@@ -15,6 +15,9 @@ origin = Vector2( 200, 500 )
 height = 500.0
 
 [node name="GameManager" parent="." instance=ExtResource( 2 )]
+tmPath = NodePath("../Tiles")
+tmPath2 = NodePath("../Tiles")
+ballPath = NodePath("../Ball")
 
 [node name="ScoreManager" parent="." instance=ExtResource( 3 )]
 ballPath = NodePath("../Ball")
@@ -27,6 +30,7 @@ zoom = Vector2( 2.68, 3.97 )
 editor_draw_limits = true
 
 [node name="Racket" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 190, 200 )
 _linkedToPath = NodePath("../Racket2")
 
@@ -45,6 +49,7 @@ editor/display_folded = true
 position = Vector2( 0, 9.59462 )
 
 [node name="Racket2" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 190, 10 )
 _linkedToPath = NodePath("../Racket")
 _isTopOne = true
@@ -64,7 +69,7 @@ position = Vector2( 0, 9.59462 )
 [node name="Ball" parent="." instance=ExtResource( 5 )]
 editor/display_folded = true
 modulate = Color( 0.290196, 1, 0, 1 )
-position = Vector2( 200, 80 )
+position = Vector2( 150, 90 )
 speed = 200.0
 
 [node name="RespawnSystem" parent="Ball" index="2"]
@@ -72,7 +77,7 @@ topRacketPath = NodePath("../../Racket2")
 bottomRacketPath = NodePath("../../Racket")
 
 [node name="Tiles" parent="." instance=ExtResource( 6 )]
-tile_data = PoolIntArray( 393214, 0, 0, 393215, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0 )
+tile_data = PoolIntArray( 327682, 0, 0 )
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 
 [editable path="Racket"]

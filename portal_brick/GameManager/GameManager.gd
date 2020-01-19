@@ -1,5 +1,13 @@
 extends Node2D
 
+export var tmPath : NodePath;
+export var tmPath2 : NodePath;
+var tm : TileMap;
+var tm2 : TileMap;
+
+export var ballPath : NodePath;
+var ball;
+
 # Sent when the game is over
 signal game_over;
 # Sent when its shooting phase
@@ -12,7 +20,20 @@ signal win;
 export var counterStart : float = 1;
 var gameStarted : bool = false;
 
+# Player lives
 export var lives : int = 3;
+# Amount of blocks to break
+var toBreak : int;
+
+func _ready():
+	if (tmPath == null or tmPath2 == null or ballPath == null):
+		return;
+	tm = get_node(tmPath);
+	tm2 = get_node(tmPath2);
+	toBreak = len(tm.get_used_cells()) #+ len(tm2.get_used_cells());
+	
+	ball = get_node(ballPath);
+	ball.connect("brick_found", self, "checkIfWon");
 
 func _process(delta):
 	if (!gameStarted):
@@ -21,7 +42,8 @@ func _process(delta):
 		else:
 			gameStarted = true;
 			emit_signal("game_started");
-	
+
+# Reduces player lives and checks if they lost;
 func loose_life():
 	lives -= 1;
 	if (lives > 0):
@@ -29,4 +51,11 @@ func loose_life():
 	else:
 		lives <= 0;
 		emit_signal("game_over");
+
+# Checks if the players won
+func checkIfWon(signalgarbage):
+	toBreak -= 1;
+	if (toBreak <= 0):
+		emit_signal("win");
+		print("woooooooooo");
 
