@@ -10,4 +10,5 @@ func _ready():
 		position = playAreaManager.origin + Vector2.UP * playAreaManager.height;
 		global_rotation_degrees = 180;
 	else:
+		global_rotation_degrees = 0;
 		position = playAreaManager.origin - Vector2.UP * playAreaManager.height;

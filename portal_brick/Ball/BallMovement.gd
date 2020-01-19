@@ -43,7 +43,7 @@ func _physics_process(delta):
 	if (!isMoving):
 		return;
 		
-	var coll = move_and_collide(dir * speed * delta);
+	var coll: KinematicCollision2D = move_and_collide(dir * speed * delta);
 		
 	# Process the collisions;
 	if (coll != null):

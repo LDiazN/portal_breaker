@@ -23,6 +23,10 @@ size = 22
 font_data = ExtResource( 7 )
 
 [node name="PlayScene" type="Node2D"]
+__meta__ = {
+"_edit_horizontal_guides_": [ 608.809 ],
+"_edit_vertical_guides_": [ 1024.54 ]
+}
 
 [node name="BackGround" type="ColorRect" parent="."]
 margin_right = 1025.0
@@ -33,35 +37,43 @@ __meta__ = {
 }
 
 [node name="ScoreManager" parent="." instance=ExtResource( 1 )]
-ballPath = NodePath("../Kinematic Ball")
+ballPath = NodePath("../Ball")
 
 [node name="GameManager" parent="." instance=ExtResource( 2 )]
-tmPath = NodePath("../TileMap_Squares")
-tmPath2 = NodePath("../TileMap_Squares2")
-ballPath = NodePath("../Kinematic Ball")
+tmPath = NodePath("../Tiles2")
+tmPath2 = NodePath("../Tiles")
+ballPath = NodePath("../Ball")
 counterStart = 0.25
 
 [node name="PlayAreaManager" parent="." instance=ExtResource( 3 )]
+origin = Vector2( 512, 300 )
+width = 900.0
+height = 250.0
 
-[node name="Kinematic Ball" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
+[node name="Ball" parent="." instance=ExtResource( 4 )]
 position = Vector2( 150, 301 )
 color = Color( 0.764706, 1, 0.760784, 1 )
 
-[node name="RespawnSystem" parent="Kinematic Ball" index="2"]
-topRacketPath = NodePath("../Racket_right")
-bottomRacketPath = NodePath("../Racket_left")
-
-[node name="Racket_left" parent="Kinematic Ball" instance=ExtResource( 5 )]
-position = Vector2( -140, -1 )
-rotation = 1.5708
+[node name="Racket_left" parent="." instance=ExtResource( 5 )]
+position = Vector2( 10, 300 )
 _linkedToPath = NodePath("../Racket_right")
 
-[node name="Racket_right" parent="Kinematic Ball" instance=ExtResource( 5 )]
-position = Vector2( 875, -1 )
-rotation = 1.5708
-_linkedToPath = NodePath("../Kinematic Ball/Racket_left")
+[node name="Shooting System" parent="Racket_left" index="0"]
+ballPath = NodePath("../../Ball")
+
+[node name="Movement System" parent="Racket_left" index="1"]
+ballPath = NodePath("../../Ball")
+
+[node name="Racket_right" parent="." instance=ExtResource( 5 )]
+position = Vector2( 1025, 300 )
+_linkedToPath = NodePath("../Racket_left")
 _isTopOne = true
+
+[node name="Shooting System" parent="Racket_right" index="0"]
+ballPath = NodePath("../../Ball")
+
+[node name="Movement System" parent="Racket_right" index="1"]
+ballPath = NodePath("../../Ball")
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -99,7 +111,6 @@ position = Vector2( 224, 0 )
 shape = SubResource( 1 )
 
 [node name="UI" type="MarginContainer" parent="."]
-editor/display_folded = true
 margin_right = 1025.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -163,13 +174,17 @@ text = "00"
 align = 1
 valign = 2
 
-[node name="TileMap_Squares2" parent="." instance=ExtResource( 8 )]
+[node name="Tiles" parent="." instance=ExtResource( 8 )]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 rotation = 1.5708
 
-[node name="TileMap_Squares" parent="." instance=ExtResource( 9 )]
+[node name="Tiles2" parent="." instance=ExtResource( 9 )]
+tile_data = PoolIntArray( 655365, 0, 0 )
 
 [node name="filter" parent="." instance=ExtResource( 10 )]
-[connection signal="brick_found" from="Kinematic Ball" to="TileMap_Squares2" method="_on_Ball_brick_found"]
+[connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
+[connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 
-[editable path="Kinematic Ball"]
+[editable path="Racket_left"]
+
+[editable path="Racket_right"]

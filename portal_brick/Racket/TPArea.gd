@@ -12,8 +12,6 @@ func _on_TPArea_body_entered(body):
 	# We need height and that kind of shit
 	if (!_isActive):
 		return;
-	if (body.name != "Ball"):
-		return;
 	if (_linkedPortal != null):
 		# Ball distance between entry point and racket center
 		var diff : float = (body.global_position.x - global_position.x);

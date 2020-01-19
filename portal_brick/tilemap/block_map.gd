@@ -10,6 +10,5 @@ extends TileMap
 #		in this tilemap
 
 func _on_Ball_brick_found(pos):
-	print("banggg")
 	var tile_pos : Vector2 = world_to_map(pos)
 	set_cellv(tile_pos, -1);

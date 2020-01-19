@@ -46,6 +46,11 @@ shoot_ball={
  ]
 }
 
+[layer_names]
+
+2d_render/layer_4="Tiles"
+2d_render/layer_5="Ball"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

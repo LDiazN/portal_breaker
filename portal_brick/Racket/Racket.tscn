@@ -6,7 +6,7 @@
 [ext_resource path="res://Racket/TPArea.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 10 )
+extents = Vector2( 50.2152, 10 )
 
 [node name="Racket" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,6 +32,8 @@ margin_right = 50.0
 margin_bottom = 15.0
 
 [node name="TPArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TPArea"]
