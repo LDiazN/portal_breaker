@@ -6,8 +6,8 @@ signal game_over;
 signal shooting_phase;
 # Sent when the game starts
 signal game_started;
-
-signal paused;
+# Sent when the players win
+signal win;
 
 export var counterStart : float = 1;
 var gameStarted : bool = false;
