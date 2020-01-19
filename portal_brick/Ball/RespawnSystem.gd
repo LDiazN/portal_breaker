@@ -33,10 +33,7 @@ func RespawnBall():
 	# Si se fue por arriba
 	if (global_position.y < (playAreaManager.origin + Vector2.UP * (playAreaManager.height + 40)).y):
 		ki.DisableBall();
-		var inst = dp.instance();
-		inst.position = global_position;
-		get_tree().root.add_child(inst);
-		inst.activateParticles();
+		deathParticles();
 		emit_signal("ball_out");
 		if (topRacket != null):
 			ki.global_position = topRacket.global_position + Vector2.DOWN * 20;
@@ -48,10 +45,7 @@ func RespawnBall():
 	# Si se fue por abajo
 	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 40)).y):
 		ki.DisableBall();
-		var inst = dp.instance();
-		inst.position = global_position;
-		get_tree().root.add_child(inst);
-		inst.activateParticles();
+		deathParticles();
 		print(bottomRacket.global_position)
 		emit_signal("ball_out");
 		if (bottomRacket != null):
@@ -61,5 +55,10 @@ func RespawnBall():
 		gameManager.loose_life();
 		bottomRacket.get_node("Shooting System").MoreShooty();
 	
+func deathParticles():
+		var inst = dp.instance();
+		inst.position = global_position;
+		get_tree().root.add_child(inst);
+		inst.activateParticles();
 
  

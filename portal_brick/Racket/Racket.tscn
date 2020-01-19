@@ -19,7 +19,6 @@ _isTopOne = false
 script = ExtResource( 2 )
 ballPath = NodePath("")
 isActive = true
-isShooting = true
 
 [node name="Movement System" type="Node2D" parent="."]
 script = ExtResource( 3 )
