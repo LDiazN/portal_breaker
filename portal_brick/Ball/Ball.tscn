@@ -6,19 +6,25 @@
 [sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.644322, 0 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.0072 ), -3.30811, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=3]
 curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
 flag_disable_z = true
-spread = 38.5
+spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 61.99
-angular_velocity = 5.04467e-44
+initial_velocity = 90.0
+initial_velocity_random = 1.0
+angular_velocity = -133.33
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+linear_accel = 2.0
+radial_accel = -100.0
+tangential_accel = 72.84
+tangential_accel_random = 0.3
+scale = 4.0
 scale_curve = SubResource( 3 )
 
 [node name="Kinematic Ball" type="KinematicBody2D"]
@@ -27,13 +33,11 @@ script = ExtResource( 1 )
 [node name="Ball Collider" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Particles2D" type="Particles2D" parent="."]
-rotation = -1.57079
+[node name="TPParticles" type="Particles2D" parent="."]
 emitting = false
-amount = 15
+amount = 20
 one_shot = true
-explosiveness = 0.85
-local_coords = false
+explosiveness = 0.79
 process_material = SubResource( 4 )
 
 [node name="RespawnSystem" type="Node2D" parent="."]

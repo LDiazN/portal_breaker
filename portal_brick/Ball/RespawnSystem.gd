@@ -1,5 +1,7 @@
 extends Node2D
 
+var dp = preload("res://Ball/DeathParticles.tscn");
+
 export var topRacketPath: NodePath;
 export var bottomRacketPath: NodePath;
 var topRacket = null;
@@ -30,27 +32,34 @@ func RespawnBall():
 
 	# Si se fue por arriba
 	if (global_position.y < (playAreaManager.origin + Vector2.UP * (playAreaManager.height + 40)).y):
-		print("por arriba");
 		ki.DisableBall();
+		var inst = dp.instance();
+		inst.position = global_position;
+		get_tree().root.add_child(inst);
+		inst.activateParticles();
+		emit_signal("ball_out");
 		if (topRacket != null):
 			ki.global_position = topRacket.global_position + Vector2.DOWN * 20;
 			print(topRacket.global_position)
 		else:
 			ki.global_position = playAreaManager.origin;
-		emit_signal("ball_out");
 		gameManager.loose_life();	
 		topRacket.get_node("Shooting System").MoreShooty();
 	# Si se fue por abajo
 	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 40)).y):
 		ki.DisableBall();
+		var inst = dp.instance();
+		inst.position = global_position;
+		get_tree().root.add_child(inst);
+		inst.activateParticles();
+		print(bottomRacket.global_position)
+		emit_signal("ball_out");
 		if (bottomRacket != null):
 			ki.global_position = bottomRacket.global_position + Vector2.UP * 20;
 		else:
 			ki.global_position = playAreaManager.origin;
-		emit_signal("ball_out");
 		gameManager.loose_life();
 		bottomRacket.get_node("Shooting System").MoreShooty();
-	
 	
 
  

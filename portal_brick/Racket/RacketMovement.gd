@@ -32,7 +32,6 @@ func _ready():
 	playAreaManager = get_node("../../PlayAreaManager");
 	ball = get_node(ballPath);
 	
-	
 	playAreaOrigin = playAreaManager.origin;
 	playAreaWidth = playAreaManager.width;
 	
