@@ -21,7 +21,7 @@ func _ready():
 	gameManager.connect("game_started", self, "EnableBall");
 	gameManager.connect("game_over", self, "DestroyBall");
 	
-	get_node("Ball Collider").shape.radius = ball_radius;
+	get_node("Ball Collider").shape.radius = ball_radius - 8;
 
 # Enables ball movement
 func EnableBall():

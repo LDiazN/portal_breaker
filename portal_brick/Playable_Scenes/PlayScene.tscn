@@ -30,7 +30,7 @@ __meta__ = {
 
 [node name="BackGround" type="ColorRect" parent="."]
 margin_right = 1025.0
-margin_bottom = 600.0
+margin_bottom = 609.0
 color = Color( 0.0117647, 0.0235294, 0.0117647, 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -47,16 +47,16 @@ counterStart = 0.25
 
 [node name="PlayAreaManager" parent="." instance=ExtResource( 3 )]
 origin = Vector2( 512, 300 )
-width = 900.0
+width = 550.0
 height = 250.0
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
-position = Vector2( 150, 301 )
+position = Vector2( 510, 550 )
+speed = 100.0
 color = Color( 0.764706, 1, 0.760784, 1 )
 
 [node name="Racket_left" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
-position = Vector2( 10, 300 )
+position = Vector2( 512, 590 )
 _linkedToPath = NodePath("../Racket_right")
 
 [node name="Shooting System" parent="Racket_left" index="0"]
@@ -64,9 +64,11 @@ ballPath = NodePath("../../Ball")
 
 [node name="Movement System" parent="Racket_left" index="1"]
 ballPath = NodePath("../../Ball")
+_speed = 300.0
 
 [node name="Racket_right" parent="." instance=ExtResource( 5 )]
-position = Vector2( 1025, 300 )
+editor/display_folded = true
+position = Vector2( 512, 0 )
 _linkedToPath = NodePath("../Racket_left")
 _isTopOne = true
 
@@ -75,17 +77,19 @@ ballPath = NodePath("../../Ball")
 
 [node name="Movement System" parent="Racket_right" index="1"]
 ballPath = NodePath("../../Ball")
+_speed = 300.0
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 editor/display_folded = true
 modulate = Color( 0.764706, 1, 0.760784, 1 )
-position = Vector2( 290, 592 )
+position = Vector2( 176, 0 )
+rotation = 1.5708
 __meta__ = {
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="wall" type="Sprite" parent="Wall2"]
-position = Vector2( 222.5, 0 )
+position = Vector2( 225, 0 )
 scale = Vector2( 8.00781, 1 )
 texture = ExtResource( 6 )
 
@@ -96,10 +100,10 @@ shape = SubResource( 1 )
 [node name="Wall" type="StaticBody2D" parent="."]
 editor/display_folded = true
 modulate = Color( 0.764706, 1, 0.760784, 1 )
-position = Vector2( 290, 0 )
+position = Vector2( 848, 0 )
+rotation = 1.5708
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="wall" type="Sprite" parent="Wall"]
@@ -112,10 +116,16 @@ position = Vector2( 224, 0 )
 shape = SubResource( 1 )
 
 [node name="UI" type="MarginContainer" parent="."]
+editor/display_folded = true
+visible = false
 margin_right = 1025.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI"]
 margin_right = 1025.0
@@ -177,14 +187,14 @@ valign = 2
 
 [node name="Tiles" parent="." instance=ExtResource( 8 )]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
-rotation = 1.5708
+tile_data = PoolIntArray( 589827, 0, 0, 589828, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 720908, 0, 0 )
 
 [node name="Tiles2" parent="." instance=ExtResource( 9 )]
-tile_data = PoolIntArray( 655365, 0, 0 )
+visible = false
 
 [node name="filter" parent="." instance=ExtResource( 10 )]
-[connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 [connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
+[connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 
 [editable path="Racket_left"]
 
