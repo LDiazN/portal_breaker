@@ -12,7 +12,7 @@ extents = Vector2( 50.2152, 10 )
 [node name="Racket" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_vertical_guides_": [ 50.5796 ]
+"_edit_vertical_guides_": [ 50.58 ]
 }
 _isTopOne = false
 

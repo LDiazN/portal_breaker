@@ -29,7 +29,7 @@ func RespawnBall():
 	var ki = get_parent();
 
 	# Si se fue por arriba
-	if (global_position.y < (playAreaManager.origin + Vector2.UP * (playAreaManager.height + 10)).y):
+	if (global_position.y < (playAreaManager.origin + Vector2.UP * (playAreaManager.height + 40)).y):
 		print("por arriba");
 		ki.DisableBall();
 		if (topRacket != null):
@@ -41,7 +41,7 @@ func RespawnBall():
 		gameManager.loose_life();	
 		topRacket.get_node("Shooting System").MoreShooty();
 	# Si se fue por abajo
-	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 10)).y):
+	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 40)).y):
 		ki.DisableBall();
 		if (bottomRacket != null):
 			ki.global_position = bottomRacket.global_position + Vector2.UP * 20;

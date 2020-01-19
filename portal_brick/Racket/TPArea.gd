@@ -15,8 +15,8 @@ func _on_TPArea_body_entered(body):
 	if (body.name != "Ball"):
 		return;
 	if (_linkedPortal != null):
+		# Ball distance between entry point and racket center
 		var diff : float = (body.global_position.x - global_position.x);
-		# El -1 del transform es just because fuck you godot
+
 		body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff + \
-		body.transform.y.normalized() * -25;
-		print(body.transform.y.normalized());
+		body.transform.y.normalized() * 25;
