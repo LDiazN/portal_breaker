@@ -16,6 +16,9 @@ func _on_TPArea_body_entered(body):
 		# Ball distance between entry point and racket center
 		var diff : float = (body.global_position.x - global_position.x);
 
-		# WHY THE FUCK I NEED THAT -1
-		body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff + \
-		body.transform.y.normalized() * -25;
+		if (get_parent()._isTopOne):
+			body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff + \
+			Vector2.UP * 25;
+		else:
+			body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff + \
+			Vector2.UP * -25;			

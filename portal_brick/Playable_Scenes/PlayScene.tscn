@@ -51,7 +51,7 @@ width = 550.0
 height = 250.0
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
-position = Vector2( 510, 550 )
+position = Vector2( 512.159, 370.847 )
 speed = 100.0
 color = Color( 0.764706, 1, 0.760784, 1 )
 
