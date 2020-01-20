@@ -50,7 +50,7 @@ func _process(delta):
 	else:
 		# Esc to quit
 		if (Input.is_action_just_pressed("ui_cancel")):
-			get_tree().quit();
+			get_tree().change_scene("res://Menu/Main_Menu.tscn");
 
 # Reduces player lives and checks if they lost;
 func loose_life():
