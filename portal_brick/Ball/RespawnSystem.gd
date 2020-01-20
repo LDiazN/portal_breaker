@@ -14,7 +14,7 @@ var gameManager;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var ki = get_parent();
+
 	playAreaManager = get_node("../../PlayAreaManager")
 	gameManager = get_node("../../GameManager");
 	topRacket = get_node(topRacketPath);
@@ -37,7 +37,6 @@ func RespawnBall():
 		emit_signal("ball_out");
 		if (topRacket != null):
 			ki.global_position = topRacket.global_position + Vector2.DOWN * 20;
-			print(topRacket.global_position)
 		else:
 			ki.global_position = playAreaManager.origin;
 		gameManager.loose_life();
@@ -46,7 +45,6 @@ func RespawnBall():
 	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 40)).y):
 		ki.DisableBall();
 		deathParticles();
-		print(bottomRacket.global_position)
 		emit_signal("ball_out");
 		if (bottomRacket != null):
 			ki.global_position = bottomRacket.global_position + Vector2.UP * 20;

@@ -21,4 +21,4 @@ func _on_TPArea_body_entered(body):
 			Vector2.UP * 25;
 		else:
 			body.global_position = _linkedPortal.global_position + Vector2.RIGHT * diff + \
-			Vector2.UP * -25;			
+			Vector2.UP * -25;

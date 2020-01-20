@@ -32,7 +32,7 @@ func _ready():
 		return;
 	tm = get_node(tmPath);
 	tm2 = get_node(tmPath2);
-	toBreak = len(tm.get_used_cells()) #+ len(tm2.get_used_cells());
+	toBreak = len(tm.get_used_cells()) + len(tm2.get_used_cells());
 	
 	ball = get_node(ballPath);
 	ball.connect("brick_found", self, "checkIfWon");
@@ -47,21 +47,23 @@ func _process(delta):
 		else:
 			gameStarted = true;
 			emit_signal("game_started");
+	else:
+		# Esc to quit
+		if (Input.is_action_just_pressed("ui_cancel")):
+			get_tree().quit();
 
 # Reduces player lives and checks if they lost;
 func loose_life():
 	lives -= 1;
+	emit_signal("update_health", lives);
 	if (lives > 0):
 		emit_signal("shooting_phase");
 	else:
-		lives <= 0;
 		emit_signal("game_over");
 
-	emit_signal("update_health", lives);
 # Checks if the players won
 func checkIfWon(signalgarbage):
 	toBreak -= 1;
 	if (toBreak <= 0):
 		emit_signal("win");
-		print("woooooooooo");
 

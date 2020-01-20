@@ -43,9 +43,8 @@ width = 550.0
 height = 250.0
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( 512.159, 370.847 )
-speed = 100.0
+speed = 250.0
 ball_radius = 10.0
 color = Color( 0.764706, 1, 0.760784, 1 )
 
@@ -54,7 +53,6 @@ topRacketPath = NodePath("../../TRacket")
 bottomRacketPath = NodePath("../../BRacket")
 
 [node name="BRacket" parent="." instance=ExtResource( 5 )]
-editor/display_folded = true
 position = Vector2( 512, 590 )
 _linkedToPath = NodePath("../TRacket")
 
@@ -139,7 +137,6 @@ visible = false
 [connection signal="game_started" from="GameManager" to="Tiles" method="_on_game_started"]
 [connection signal="game_started" from="GameManager" to="UI" method="_on_GameManager_game_started"]
 [connection signal="update_health" from="GameManager" to="UI" method="_on_update_health"]
-[connection signal="ball_out" from="Ball" to="UI" method="_on_Ball_ball_out"]
 [connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 

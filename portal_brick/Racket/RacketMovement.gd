@@ -41,6 +41,7 @@ func _ready():
 		
 	gameManager.connect("game_started", self, "EnableRacket");
 	gameManager.connect("game_over", self, "DisableRacket");
+	gameManager.connect("win", self, "DisableRacket");
 
 # Conectar a la senal de game_over y de perdida de pelota o shooting_phase
 func DisableRacket():

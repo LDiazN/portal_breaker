@@ -14,7 +14,7 @@ func _ready():
 	ball = get_node(ballPath);	
 	gameManager = get_node("../../GameManager");
 	if (ball == null):
-		print("No ball setted up :( BIG F");
+		ball.get_node("RespawnSystem").connect("ball_out", self, "MoreShooty");
 	isTop = get_parent()._isTopOne;
 		
 # Disables the shooting

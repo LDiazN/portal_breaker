@@ -20,9 +20,7 @@ func _on_GameManager_game_started():
 
 
 func _on_ScoreManager_score_updated(new_score : int):
-	print("Earned points: ",new_score)
 	Score.text = str(new_score);
-
 
 
 func _on_update_health(new_health):

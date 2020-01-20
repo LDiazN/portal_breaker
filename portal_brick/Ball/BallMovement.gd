@@ -6,7 +6,6 @@ export var isMoving : bool = false;
 export var ball_radius : float = 16
 export var color : Color = Color.white;
 
-signal ball_out;
 signal brick_found;
 # Emitted when the ball is shot
 signal ball_shot;
@@ -20,6 +19,7 @@ func _ready():
 	
 	gameManager.connect("game_started", self, "EnableBall");
 	gameManager.connect("game_over", self, "DestroyBall");
+	gameManager.connect("win", self, "DisableBall");
 	
 	get_node("Ball Collider").shape.radius = ball_radius;
 
@@ -57,10 +57,4 @@ func _physics_process(delta):
 			
 func _draw():
 	draw_circle(Vector2.ZERO, ball_radius, color)
-	
-	
-	
-	
-	
-	
 	
