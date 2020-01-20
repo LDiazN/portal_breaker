@@ -51,6 +51,8 @@ func _process(delta):
 		# Esc to quit
 		if (Input.is_action_just_pressed("ui_cancel")):
 			get_tree().change_scene("res://Menu/Main_Menu.tscn");
+		elif (Input.is_action_just_pressed("restart")):
+			get_tree().change_scene("res://Playable_Scenes/PlayScene.tscn");
 
 # Reduces player lives and checks if they lost;
 func loose_life():
