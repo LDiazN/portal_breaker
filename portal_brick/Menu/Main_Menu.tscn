@@ -1,16 +1,15 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Menu/Main_Menu.gd" type="Script" id=1]
-[ext_resource path="res://Menu/fonts/main_font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Menu/button.png" type="Texture" id=3]
-[ext_resource path="res://Menu/button_down.png" type="Texture" id=4]
-[ext_resource path="res://Menu/MenuButton.gd" type="Script" id=5]
-[ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Visuals/filter.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Menu/fonts/main_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Menu/button.png" type="Texture" id=2]
+[ext_resource path="res://Menu/button_down.png" type="Texture" id=3]
+[ext_resource path="res://Menu/MenuButton.gd" type="Script" id=4]
+[ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Visuals/filter.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 41
-font_data = ExtResource( 6 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFontData" id=2]
 font_path = "res://Menu/fonts/typed.ttf"
@@ -20,7 +19,6 @@ size = 20
 font_data = SubResource( 2 )
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource( 1 )
 
 [node name="background" type="ColorRect" parent="."]
 margin_right = 1025.0
@@ -46,7 +44,7 @@ margin_bottom = 532.0
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 margin_right = 1020.0
 margin_bottom = 116.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 text = "Portal Breaker"
 align = 1
 
@@ -73,10 +71,10 @@ margin_right = 256.0
 margin_bottom = 128.0
 mouse_default_cursor_shape = 7
 size_flags_vertical = 0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 4 )
-script = ExtResource( 5 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+script = ExtResource( 4 )
 play_scene_path = "res://Playable_Scenes/PlayScene.tscn"
 
 [node name="light" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play"]
@@ -103,10 +101,10 @@ margin_left = 401.0
 margin_right = 657.0
 margin_bottom = 128.0
 size_flags_vertical = 0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 4 )
-texture_hover = ExtResource( 4 )
-script = ExtResource( 5 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="light" type="Label" parent="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Free Mode"]
 modulate = Color( 0.764706, 1, 0.760784, 1 )
@@ -138,7 +136,7 @@ Pedro Rodriguez
 Luis Diaz"
 align = 1
 
-[node name="filter" parent="." instance=ExtResource( 7 )]
+[node name="filter" parent="." instance=ExtResource( 6 )]
 margin_right = 1020.0
 margin_bottom = 600.0
 [connection signal="button_up" from="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" to="Menu_UI/VBoxContainer/CenterContainer/HBoxContainer/Play" method="_on_Play_button_up"]
