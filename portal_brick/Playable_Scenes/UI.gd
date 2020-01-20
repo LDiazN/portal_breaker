@@ -7,12 +7,14 @@ export var GameManager_path : NodePath;
 onready var Score = $"VBoxContainer/HBoxContainer/Score"
 #Instruction label
 onready var Instruction : Label = $"VBoxContainer/HBoxContainer/CenterContainer2/CenterContainer/Instructions"
+# loose message
+onready var loose : Label = $"VBoxContainer/HBoxContainer/CenterContainer2/CenterContainer/You Lose"
+# Win message:
+onready var win : Label = $"VBoxContainer/HBoxContainer/CenterContainer2/CenterContainer/YouWin"
 #GameManager object:
 onready var GameManager : Node = $"../GameManager"
 #Life Counter
 onready var lifes : Label = $"VBoxContainer/HBoxContainer/lifes"
-# loose message
-onready var loose : Label = $"VBoxContainer/HBoxContainer/CenterContainer2/CenterContainer/You Lose"
 
 func _on_GameManager_game_started():
 	Instruction.hide()
@@ -31,4 +33,9 @@ func _on_update_health(new_health):
 
 func _on_GameManager_game_over():
 	loose.show()
+	pass # Replace with function body.
+
+
+func _on_GameManager_win():
+	win.show()
 	pass # Replace with function body.

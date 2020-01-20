@@ -123,22 +123,23 @@ GameManager_path = NodePath("../GameManager")
 [node name="Tiles" parent="." instance=ExtResource( 8 )]
 visible = false
 modulate = Color( 0.764706, 1, 0.760784, 1 )
-tile_data = PoolIntArray( 589827, 0, 0, 589828, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 720908, 0, 0 )
+tile_data = PoolIntArray( 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524300, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589836, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0 )
 
 [node name="Tiles2" parent="." instance=ExtResource( 9 )]
 visible = false
 
 [node name="filter" parent="." instance=ExtResource( 10 )]
 [connection signal="score_updated" from="ScoreManager" to="UI" method="_on_ScoreManager_score_updated"]
-[connection signal="game_over" from="GameManager" to="Tiles2" method="_on_GameManager_game_over"]
 [connection signal="game_over" from="GameManager" to="Tiles" method="_on_GameManager_game_over"]
+[connection signal="game_over" from="GameManager" to="Tiles2" method="_on_GameManager_game_over"]
 [connection signal="game_over" from="GameManager" to="UI" method="_on_GameManager_game_over"]
-[connection signal="game_started" from="GameManager" to="Tiles2" method="_on_game_started"]
 [connection signal="game_started" from="GameManager" to="Tiles" method="_on_game_started"]
+[connection signal="game_started" from="GameManager" to="Tiles2" method="_on_game_started"]
 [connection signal="game_started" from="GameManager" to="UI" method="_on_GameManager_game_started"]
 [connection signal="update_health" from="GameManager" to="UI" method="_on_update_health"]
-[connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
+[connection signal="win" from="GameManager" to="UI" method="_on_GameManager_win"]
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
+[connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
 
 [editable path="Ball"]
 
