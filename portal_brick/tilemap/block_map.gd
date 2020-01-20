@@ -12,3 +12,11 @@ extends TileMap
 func _on_Ball_brick_found(pos):
 	var tile_pos : Vector2 = world_to_map(pos)
 	set_cellv(tile_pos, -1);
+	
+func _on_game_started():
+	show();
+
+
+
+func _on_GameManager_game_over():
+	hide()

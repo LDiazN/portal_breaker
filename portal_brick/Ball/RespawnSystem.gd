@@ -40,7 +40,7 @@ func RespawnBall():
 			print(topRacket.global_position)
 		else:
 			ki.global_position = playAreaManager.origin;
-		gameManager.loose_life();	
+		gameManager.loose_life();
 		topRacket.get_node("Shooting System").MoreShooty();
 	# Si se fue por abajo
 	elif (global_position.y > (playAreaManager.origin + Vector2.DOWN * (playAreaManager.height + 40)).y):

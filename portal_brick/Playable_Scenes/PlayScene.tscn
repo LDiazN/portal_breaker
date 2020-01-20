@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://ScoreManager/ScoreManager.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameManager/GameManager.tscn" type="PackedScene" id=2]
@@ -6,21 +6,13 @@
 [ext_resource path="res://Ball/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Racket/Racket.tscn" type="PackedScene" id=5]
 [ext_resource path="res://tilemap/template_pong.png" type="Texture" id=6]
-[ext_resource path="res://Menu/fonts/typed.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Menu/UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://tilemap/block_map_2B.tscn" type="PackedScene" id=8]
 [ext_resource path="res://tilemap/block_map_1B.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Visuals/filter.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 512, 16 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 27
-font_data = ExtResource( 7 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 22
-font_data = ExtResource( 7 )
 
 [node name="PlayScene" type="Node2D"]
 __meta__ = {
@@ -43,7 +35,7 @@ ballPath = NodePath("../Ball")
 tmPath = NodePath("../Tiles2")
 tmPath2 = NodePath("../Tiles")
 ballPath = NodePath("../Ball")
-counterStart = 0.25
+counterStart = 2.0
 
 [node name="PlayAreaManager" parent="." instance=ExtResource( 3 )]
 origin = Vector2( 512, 300 )
@@ -51,6 +43,7 @@ width = 550.0
 height = 250.0
 
 [node name="Ball" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 512.159, 370.847 )
 speed = 100.0
 ball_radius = 10.0
@@ -61,6 +54,7 @@ topRacketPath = NodePath("../../TRacket")
 bottomRacketPath = NodePath("../../BRacket")
 
 [node name="BRacket" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( 512, 590 )
 _linkedToPath = NodePath("../TRacket")
 
@@ -70,8 +64,10 @@ ballPath = NodePath("../../Ball")
 [node name="Movement System" parent="BRacket" index="1"]
 ballPath = NodePath("../../Ball")
 _speed = 300.0
+racketWidth = 10.0
 
 [node name="TRacket" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( 512, 0 )
 _linkedToPath = NodePath("../BRacket")
 _isTopOne = true
@@ -82,6 +78,10 @@ ballPath = NodePath("../../Ball")
 [node name="Movement System" parent="TRacket" index="1"]
 ballPath = NodePath("../../Ball")
 _speed = 300.0
+racketWidth = 10.0
+
+[node name="TPArea" parent="TRacket" index="3"]
+editor/display_folded = true
 
 [node name="Wall2" type="StaticBody2D" parent="."]
 editor/display_folded = true
@@ -119,77 +119,11 @@ texture = ExtResource( 6 )
 position = Vector2( 224, 0 )
 shape = SubResource( 1 )
 
-[node name="UI" type="MarginContainer" parent="."]
-editor/display_folded = true
-visible = false
-margin_right = 1025.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
-margin_right = 1025.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/VBoxContainer"]
-margin_right = 1025.0
-margin_bottom = 570.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Instructions" type="Label" parent="UI/VBoxContainer/CenterContainer"]
-modulate = Color( 0.764706, 1, 0.760784, 1 )
-margin_left = 328.0
-margin_top = 232.0
-margin_right = 696.0
-margin_bottom = 337.0
-custom_fonts/font = SubResource( 2 )
-text = "Press \"SPACE\" to start.
-Press \"R\" to restart.
-Press \"Esc\" to Quit."
-align = 1
-
-[node name="You Lose" type="Label" parent="UI/VBoxContainer/CenterContainer"]
-visible = false
-modulate = Color( 0.764706, 1, 0.760784, 1 )
-margin_left = 384.0
-margin_top = 268.0
-margin_right = 640.0
-margin_bottom = 301.0
-custom_fonts/font = SubResource( 2 )
-text = "You Lose. Score:"
-align = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
-editor/display_folded = true
-margin_top = 574.0
-margin_right = 1025.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="UI/VBoxContainer/HBoxContainer"]
-editor/display_folded = true
-margin_right = 1025.0
-margin_bottom = 26.0
-size_flags_horizontal = 3
-
-[node name="Score" type="Label" parent="UI/VBoxContainer/HBoxContainer/CenterContainer"]
-modulate = Color( 0, 0, 0, 1 )
-margin_left = 499.0
-margin_right = 525.0
-margin_bottom = 26.0
-custom_fonts/font = SubResource( 3 )
-text = "00"
-align = 1
-valign = 2
+[node name="UI" parent="." instance=ExtResource( 7 )]
+GameManager_path = NodePath("../GameManager")
 
 [node name="Tiles" parent="." instance=ExtResource( 8 )]
+visible = false
 modulate = Color( 0.764706, 1, 0.760784, 1 )
 tile_data = PoolIntArray( 589827, 0, 0, 589828, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 720908, 0, 0 )
 
@@ -197,6 +131,15 @@ tile_data = PoolIntArray( 589827, 0, 0, 589828, 0, 0, 589831, 0, 0, 589832, 0, 0
 visible = false
 
 [node name="filter" parent="." instance=ExtResource( 10 )]
+[connection signal="score_updated" from="ScoreManager" to="UI" method="_on_ScoreManager_score_updated"]
+[connection signal="game_over" from="GameManager" to="Tiles2" method="_on_GameManager_game_over"]
+[connection signal="game_over" from="GameManager" to="Tiles" method="_on_GameManager_game_over"]
+[connection signal="game_over" from="GameManager" to="UI" method="_on_GameManager_game_over"]
+[connection signal="game_started" from="GameManager" to="Tiles2" method="_on_game_started"]
+[connection signal="game_started" from="GameManager" to="Tiles" method="_on_game_started"]
+[connection signal="game_started" from="GameManager" to="UI" method="_on_GameManager_game_started"]
+[connection signal="update_health" from="GameManager" to="UI" method="_on_update_health"]
+[connection signal="ball_out" from="Ball" to="UI" method="_on_Ball_ball_out"]
 [connection signal="brick_found" from="Ball" to="Tiles2" method="_on_Ball_brick_found"]
 [connection signal="brick_found" from="Ball" to="Tiles" method="_on_Ball_brick_found"]
 

@@ -16,6 +16,8 @@ signal shooting_phase;
 signal game_started;
 # Sent when the players win
 signal win;
+# Sent when ball_out
+signal update_health(new_health);
 
 export var counterStart : float = 1;
 var gameStarted : bool = false;
@@ -55,6 +57,7 @@ func loose_life():
 		lives <= 0;
 		emit_signal("game_over");
 
+	emit_signal("update_health", lives);
 # Checks if the players won
 func checkIfWon(signalgarbage):
 	toBreak -= 1;

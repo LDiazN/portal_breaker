@@ -17,7 +17,7 @@ var gameManager;
 var ball;
 
 # Sent when the score is updated
-signal score_updated;
+signal score_updated(new_score);
 
 func _enter_tree():
 	start = false;
@@ -47,7 +47,7 @@ func restartMultiplier():
 # Updates players score
 func updateScore(signalgarbage):
 	score += floor(100 + 100 * timeMultiplier);
-	emit_signal("score_updated");
+	emit_signal("score_updated", score);
 
 func _process(delta):
 	if (!start):
